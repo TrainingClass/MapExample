@@ -24,12 +24,41 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="aZa-Ue-Qgo"/>
                                 </connections>
                             </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7XK-JD-YZ7">
+                                <rect key="frame" x="194" y="567" width="212" height="29"/>
+                                <segments>
+                                    <segment title="Satellite"/>
+                                    <segment title="Hybrid"/>
+                                    <segment title="Standard"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentControlChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="WY2-TZ-WuO"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Traffic:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqW-yv-0F2">
+                                <rect key="frame" x="522" y="539" width="54" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gJi-BS-aUX">
+                                <rect key="frame" x="523" y="561" width="51" height="31"/>
+                                <connections>
+                                    <action selector="SwitchTrafficMode:" destination="BYZ-38-t0r" eventType="valueChanged" id="2mM-hM-2nM"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="gJi-BS-aUX" firstAttribute="leading" secondItem="Kw6-hx-YOR" secondAttribute="trailing" constant="-77" id="234-7n-SU7"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Kw6-hx-YOR" secondAttribute="bottom" id="8so-lY-z2F"/>
+                            <constraint firstItem="hqW-yv-0F2" firstAttribute="leading" secondItem="Kw6-hx-YOR" secondAttribute="trailing" constant="-78" id="AsK-HH-LXw"/>
+                            <constraint firstItem="7XK-JD-YZ7" firstAttribute="centerX" secondItem="Kw6-hx-YOR" secondAttribute="centerX" id="KtO-Ag-0ee"/>
+                            <constraint firstItem="gJi-BS-aUX" firstAttribute="top" secondItem="hqW-yv-0F2" secondAttribute="bottom" constant="1" id="f9Z-LE-gZK"/>
+                            <constraint firstItem="7XK-JD-YZ7" firstAttribute="bottom" secondItem="Kw6-hx-YOR" secondAttribute="bottom" constant="-5" id="gCa-88-hPc"/>
                             <constraint firstItem="Kw6-hx-YOR" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="iAf-uZ-cD3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Kw6-hx-YOR" secondAttribute="trailing" constant="-20" id="m7f-nw-gHI"/>
+                            <constraint firstItem="gJi-BS-aUX" firstAttribute="top" secondItem="Kw6-hx-YOR" secondAttribute="bottom" constant="-39" id="mNM-7t-XMj"/>
                             <constraint firstItem="Kw6-hx-YOR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="wqP-z1-8RH"/>
                         </constraints>
                     </view>

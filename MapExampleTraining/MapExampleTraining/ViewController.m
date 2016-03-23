@@ -11,6 +11,7 @@
 
 @interface ViewController ()
 
+- (IBAction)segmentControlChange:(UISegmentedControl *)sender;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic) CLLocationManager *locationManager;
 
@@ -43,15 +44,21 @@
     self.mapView.region = MKCoordinateRegionMake(coordinate, span);
     [self.mapView setShowsUserLocation:YES];
     
+    
+    
+    
     MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
     annotation.coordinate = coordinate;
     annotation.title = @"My Annotation";
     annotation.subtitle = [NSString stringWithFormat:@"Coordinates: %f, %f", coordinate.latitude, coordinate.longitude];
     
     [self.mapView addAnnotation:annotation];
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(setNewAnnotation:)];
+    longPress.minimumPressDuration = 2;
+    [self.mapView addGestureRecognizer:longPress];
 
 }
-
 
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annot {
     //create a view for annotation using your MyAnnotation class
@@ -92,6 +99,45 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning]; 
     // Dispose of any resources that can be recreated.
+}
+
+// Show Traffic on/off
+- (IBAction)SwitchTrafficMode:(UISwitch *)sender {
+    self.mapView.showsTraffic = !self.mapView.showsTraffic;
+    
+}
+
+// Change MapType
+- (IBAction)segmentControlChange:(UISegmentedControl *)sender {
+    
+    switch (sender.selectedSegmentIndex) {
+        case 1:
+            self.mapView.mapType = MKMapTypeSatellite;
+            break;
+        case 2:
+            self.mapView.mapType = MKMapTypeHybrid;
+            break;
+        default:
+            self.mapView.mapType = MKMapTypeStandard;
+            break;
+    }
+}
+
+//
+- (void)setNewAnnotation:(UIGestureRecognizer*)gestureRecognizer{
+    
+    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+    CLLocationCoordinate2D newCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    annotation.coordinate = newCoordinate;
+    annotation.title = @"New Annotation";
+    annotation.subtitle = [NSString stringWithFormat:@"Coordinates: %f, %f", newCoordinate.latitude, newCoordinate.longitude];
+    
+    [self.mapView addAnnotation:annotation];
+    
+
+    
 }
 
 @end
