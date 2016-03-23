@@ -34,21 +34,20 @@
     //Setting an initial Location
     CLLocationDegrees latitude = 33.857362;
     CLLocationDegrees longitude = -84.428205;
-    CLLocationDegrees deltaLatitude = 0.03;
-    CLLocationDegrees deltaLongitude = 0.03;
+    CLLocationDegrees deltaLatitude = 5;
+    CLLocationDegrees deltaLongitude = 5;
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
     MKCoordinateSpan span = MKCoordinateSpanMake(deltaLatitude, deltaLongitude);
     self.mapView.region = MKCoordinateRegionMake(coordinate, span);
     [self.mapView setShowsUserLocation:YES];
     
     // Adding an Annotation
-    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-    annotation.coordinate = coordinate;
-    annotation.title = @"My Annotation";
-    annotation.subtitle = [NSString stringWithFormat:@"Coordinates: %f, %f", coordinate.latitude, coordinate.longitude];
-    
-    [self.mapView addAnnotation:annotation];
-    
+//    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+//    annotation.coordinate = coordinate;
+//    annotation.title = @"My Annotation";
+//    annotation.subtitle = [NSString stringWithFormat:@"Coordinates: %f, %f", coordinate.latitude, coordinate.longitude];
+//    [self.mapView addAnnotation:annotation];
+//
     
     //Add an Annotation when long press on map
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(setNewAnnotation:)];
@@ -57,12 +56,12 @@
     
     
     //getPath
-    CLLocationCoordinate2D point1 = CLLocationCoordinate2DMake(33.849362, -84.420000);
+    CLLocationCoordinate2D point1 = CLLocationCoordinate2DMake(31.849362, -84.020000);
     MKPlacemark *place1 = [[MKPlacemark alloc] initWithCoordinate:point1 addressDictionary:nil];
     MKMapItem *firstPoint = [[MKMapItem alloc] initWithPlacemark:place1];
     firstPoint.name = @"First Point";
     
-    CLLocationCoordinate2D point2 = CLLocationCoordinate2DMake(33.846000, -84.428205);
+    CLLocationCoordinate2D point2 = CLLocationCoordinate2DMake(31.846000, -84.426205);
     MKPlacemark *place2 = [[MKPlacemark alloc] initWithCoordinate:point2 addressDictionary:nil];
     MKMapItem *secondPoint = [[MKMapItem alloc] initWithPlacemark:place2];
     secondPoint.name = @"Second Point";
@@ -73,17 +72,21 @@
     thirdPoint.name = @"Third Point";
     
     [self setPoint:firstPoint];
-    [self setPoint:secondPoint];
-    [self setPoint:thirdPoint];
-    
+    [self setPoint:secondPoint];    //
     [self getPathFrom:firstPoint toDestiny:secondPoint];
     [self getPathFrom:secondPoint toDestiny:thirdPoint];
 
     
-     //Calling Maps
+//     //Calling Maps
 //    NSArray *arrayMapItems = @[firstPoint, secondPoint, thirdPoint];
 //    [MKMapItem openMapsWithItems:arrayMapItems launchOptions:nil];
+//
+     //CAlling external APPs
+//    NSURL *URL = [[NSURL alloc] initWithString:@"http://maps.apple.com/?q=Mexican+Restaurant"];
+//    [[UIApplication sharedApplication] openURL:URL];
     
+//    NSURL *URL = [[NSURL alloc] initWithString:@"instagram://user?username=juan"];
+//    [[UIApplication sharedApplication] openURL:URL];
 
 }
 
@@ -170,8 +173,10 @@
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     request.source = origin;
     request.destination = destiny;
-    request.transportType = MKDirectionsTransportTypeWalking;
-    //request.transportType = MKDirectionsTransportTypeAutomobile;
+//    request.transportType = MKDirectionsTransportTypeTransit;
+    //request.transportType = MKDirectionsTransportTypeWalking;
+    //request.transportType = MKDirectionsTransportTypeAny;
+    request.transportType = MKDirectionsTransportTypeAutomobile;
     
     MKDirections *indications = [[MKDirections alloc] initWithRequest:request];
     [indications calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
@@ -196,7 +201,7 @@
 -(MKPolylineRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(nonnull id<MKOverlay>)overlay{
     MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
     renderer.strokeColor = [UIColor blueColor];
-    renderer.lineWidth = 3.0;
+    renderer.lineWidth = 2.0;
     return renderer;
 }
 
