@@ -78,6 +78,11 @@
     
     [self getPathFrom:firstPoint toDestiny:secondPoint];
     [self getPathFrom:secondPoint toDestiny:thirdPoint];
+
+    
+     //Calling Maps
+//    NSArray *arrayMapItems = @[firstPoint, secondPoint, thirdPoint];
+//    [MKMapItem openMapsWithItems:arrayMapItems launchOptions:nil];
     
 
 }
